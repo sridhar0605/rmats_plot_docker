@@ -27,10 +27,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     libbz2-dev \
     liblzma-dev
 
-
-################
-#Samtools 1.3.1#
-################
+#Samtools 1.3.1
 ENV SAMTOOLS_INSTALL_DIR=/opt/samtools
 
 WORKDIR /tmp
@@ -60,21 +57,7 @@ RUN cd /tmp && \
 RUN conda create --quiet --yes -p $CONDA_DIR/envs/python2 python=2.7 'pip' && \
     conda clean -tipsy && \
     /bin/bash -c python && \
-    #dependencies sometimes get weird - installing each on it's own line seems to help
-    pip install numpy==1.13.0 && \
-    pip install scipy==0.19.0 && \
-    pip install cruzdb==0.5.6 && \
-    pip install cython==0.25.2 && \
-    pip install pyensembl==1.1.0 && \
-    pip install pyfaidx==0.4.9.2 && \
-    pip install pybedtools==0.7.10 && \
-    pip install cyvcf2==0.7.4 && \
-    pip install intervaltree_bio==1.0.1 && \
-    pip install pandas==0.20.2 && \
-    pip install scipy==0.19.0 && \
-    pip install pysam==0.11.2.2 && \
-    pip install seaborn==0.7.1 && \
-    pip install scikit-learn==0.18.2
+    pip install pysam==0.11.2.2
 
 #install rmats2sashimiplot
 RUN cd /opt && git config --global http.sslVerify false && \
