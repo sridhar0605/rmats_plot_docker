@@ -10,22 +10,33 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     build-essential \
     bzip2 \
     curl \
+    csh \
     g++ \
+    gawk \
     git \
+    grep \
     less \
     libcurl4-openssl-dev \
     libpng-dev \
+    librsvg2-bin \
     libssl-dev \
     libxml2-dev \
+    lsof \
     make \
+    man \
+    ncurses-dev \
+    nodejs \
+    openssh-client \
+    pdftk \
     pkg-config \
+    python \
     rsync \
+    screen \
+    tabix \
     unzip \
     wget \
     zip \
-    zlib1g-dev \
-    libbz2-dev \
-    liblzma-dev
+    zlib1g-dev
 
 #HTSlib 1.3.2
 ENV HTSLIB_INSTALL_DIR=/opt/htslib
