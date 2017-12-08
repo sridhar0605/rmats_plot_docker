@@ -38,7 +38,7 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     zip \
     zlib1g-dev
 
-#HTSlib 1.3.2
+##HTSlib 1.3.2
 ENV HTSLIB_INSTALL_DIR=/opt/htslib
 
 WORKDIR /tmp
@@ -50,7 +50,7 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.3.2/htslib-1.3.2
     make install && \
     cp $HTSLIB_INSTALL_DIR/lib/libhts.so* /usr/lib/
     
-#Samtools 1.3.1
+##Samtools 1.3.1
 ENV SAMTOOLS_INSTALL_DIR=/opt/samtools
 
 WORKDIR /tmp
@@ -63,11 +63,11 @@ RUN wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1
     cd / && \
     rm -rf /tmp/samtools-1.3.1
 
-# Configure environment
+##Configure environment
 ENV CONDA_DIR /opt/conda
 ENV PATH $CONDA_DIR/bin:$PATH
 
-# Install conda
+##Install conda
 RUN cd /tmp && \
     mkdir -p $CONDA_DIR && \
     curl -s https://repo.continuum.io/miniconda/Miniconda3-4.3.21-Linux-x86_64.sh -o miniconda.sh && \
@@ -90,6 +90,11 @@ RUN cd /opt && git config --global http.sslVerify false && \
 # needed for MGI data mounts
 RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
 
+
+RUN ln -sf /usr/share/zoneinfo/America/Chicago /etc/localtime && \
+    echo "America/Chicago" > /etc/timezone && \
+    dpkg-reconfigure --frontend noninteractive tzdata
+    
 # Clean up
 RUN cd / && \
    rm -rf /tmp/* && \
