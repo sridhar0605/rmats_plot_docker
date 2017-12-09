@@ -49,6 +49,5 @@ RUN wget https://github.com/samtools/htslib/releases/download/1.3.2/htslib-1.3.2
     make && \
     make install && \
     cp $HTSLIB_INSTALL_DIR/lib/libhts.so* /usr/lib/
-    
-##Samtools 1.3.1
 
+RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
