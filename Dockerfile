@@ -39,15 +39,17 @@ RUN apt-get update -y && apt-get install -y --no-install-recommends \
     zlib1g-dev
 
 ##HTSlib 1.3.2
-ENV HTSLIB_INSTALL_DIR=/opt/htslib
+RUN apt-get update && apt-get install -y \
+    bzip2 \
+    gcc \
+    make \
+    wget \
+    zlib1g-dev \
+ && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /tmp
-RUN wget https://github.com/samtools/htslib/releases/download/1.3.2/htslib-1.3.2.tar.bz2 --no-check-certificate --force-yes && \
-    tar --bzip2 -xvf htslib-1.3.2.tar.bz2 && \
-    cd /tmp/htslib-1.3.2 && \
-    ./configure  --enable-plugins --prefix=$HTSLIB_INSTALL_DIR && \
-    make && \
-    make install && \
-    cp $HTSLIB_INSTALL_DIR/lib/libhts.so* /usr/lib/
-
-RUN apt-get update && apt-get install -y libnss-sss && apt-get clean all
+# Download , build  and install Samtools
+RUN wget https://github.com/samtools/samtools/releases/download/1.3.1/samtools-1.3.1.tar.bz2 && \
+    tar jxvf samtools-1.3.1.tar.bz2 && \
+    cd samtools-1.3.1/htslib-1.3.1 && \
+    ./configure && make && make install && \
+    cd ../ && ./configure --without-curses && make && make install
